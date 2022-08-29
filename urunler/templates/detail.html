@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+    {% for i in urun %}
+            <div class="col-md-3 mt-4 m-auto">
+                
+                    <div class="card" style="width: 18rem;">
+                        <img src=" {{i.resim.url}} " class="card-img-top" alt="..." height="250">
+                        <div class="card-body">
+                            <h5 class="card-title">{{i.isim}} </h5>
+                            <p class="card-text">{{i.aciklama}}</p>
+                        </div>
+                    </div>
+                
+            </div>
+            {% endfor %}
+{% endblock content %}

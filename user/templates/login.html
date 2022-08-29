@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <form action="" method="POST" class="w-50 m-auto p-4 border">
+        {% csrf_token %}
+            <h1>Giriş yap</h1>
+            <label for="">Kullanıcı adı:</label>
+            <input type="text" class="form-control" name="user">
+            <label for="">Şifre:</label>
+            <input type="password" name="sifre" id="" class="form-control">
+            <input type="submit" value="Giriş yap" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock content %}
