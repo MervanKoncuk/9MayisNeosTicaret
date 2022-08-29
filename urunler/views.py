@@ -13,6 +13,7 @@ def index(request):
             Q(isim__icontains = search) |
             Q(kategori__isim__icontains = search)
         )
+    # Yapılan değişiklik
     context = {
         'urun':urunler,
         'kategoriler':kategoriler,
