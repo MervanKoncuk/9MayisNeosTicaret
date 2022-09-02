@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import *
 # Create your models here.
 class Kategori(models.Model):
     isim = models.CharField(max_length=50)
@@ -25,3 +25,9 @@ class Urun(models.Model):
 
     def __str__(self):
         return self.isim
+class Sepet(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    urun = models.ManyToManyField('Urun', blank=True)
+
+    def __str__(self):
+        return self.owner.username

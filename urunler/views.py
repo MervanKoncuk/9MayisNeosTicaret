@@ -5,7 +5,7 @@ from django.db.models import Q
 # Create your views here.
 def index(request):
     urunler = Urun.objects.all()
-    search = ''
+    search = ''    
     kategoriler = Kategori.objects.all()
     if request.GET.get('search'):
         search = request.GET.get('search')
@@ -13,11 +13,27 @@ def index(request):
             Q(isim__icontains = search) |
             Q(kategori__isim__icontains = search)
         )
+    user = request.user if request.user.is_authenticated else ''
+    # if request.user.is_authenticated:
+    #     user = request.user
+    # else:
+    #     user = ''
+    if request.method == 'POST':
+        urun = request.POST['sepet']
+        if Sepet.objects.filter(owner = user).exists():
+            sepet = Sepet.objects.get(owner = user)
+            sepet.urun.add(urun)
+        else:
+            sepet = Sepet.objects.create(owner = user)
+            sepet.urun.add(urun)
+
+    sepetim = Sepet.objects.filter(owner = user)      
     # Yapılan değişiklik
     context = {
         'urun':urunler,
         'kategoriler':kategoriler,
-        'search':search
+        'search':search,
+        'sepetim':sepetim
     }
     return render(request, 'index.html', context)
 
